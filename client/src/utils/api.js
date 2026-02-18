@@ -1,7 +1,9 @@
 // Backend API base URL (uses env var or falls back to default)
-const API_BASE_URL = import.meta.env.VITE_API_URL 
+const API_BASE_URL = import.meta.env.VITE_API_URL
   ? `${import.meta.env.VITE_API_URL}/api`
   : 'http://localhost:8080/api';
+
+console.log('🔌 API Base URL:', API_BASE_URL);
 
 // Utility: Fetch with timeout and retry logic
 const fetchWithTimeout = async (url, options = {}, timeout = 10000, retries = 2) => {
@@ -138,7 +140,7 @@ export const api = {
 };
 
 // WebSocket URL (uses env var or falls back to default)
-export const WS_URL = import.meta.env.VITE_WS_URL 
+export const WS_URL = import.meta.env.VITE_WS_URL
   ? `${import.meta.env.VITE_WS_URL}/frontend`
   : 'ws://localhost:8080/frontend';
 

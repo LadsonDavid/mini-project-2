@@ -10,7 +10,7 @@ const server = createServer(app);
 
 // Middleware
 app.use(cors({
-  origin: config.corsOrigin,
+  origin: true, // Allow all origins for debugging
   credentials: true,
 }));
 app.use(express.json());
