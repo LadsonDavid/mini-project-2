@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Glow | Calm Sequence Game</title>
+    <meta name="description" content="A relaxing memory training game with soft colors and gentle sequences.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <main class="game-container">
+        <header class="game-header">
+            <h1 class="game-title">Memory Glow</h1>
+            <p class="game-subtitle">Level <span id="level-count">1</span></p>
+        </header>
+
+        <section class="board-wrapper">
+            <div id="game-board" class="game-board">
+                <!-- Tiles will be dynamically handled but defined here for layout stability -->
+                <button class="tile" id="tile-0" aria-label="Tile 1" data-index="0"></button>
+                <button class="tile" id="tile-1" aria-label="Tile 2" data-index="1"></button>
+                <button class="tile" id="tile-2" aria-label="Tile 3" data-index="2"></button>
+                <button class="tile" id="tile-3" aria-label="Tile 4" data-index="3"></button>
+                <button class="tile" id="tile-4" aria-label="Tile 5" data-index="4"></button>
+                <button class="tile" id="tile-5" aria-label="Tile 6" data-index="5"></button>
+            </div>
+        </section>
+
+        <footer class="game-footer">
+            <div id="status-message" class="status-message">Watch the pattern...</div>
+            <button id="start-btn" class="start-btn">Start Session</button>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

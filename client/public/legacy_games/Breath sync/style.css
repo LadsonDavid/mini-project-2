@@ -1,0 +1,195 @@
+:root {
+    --bg-color: #0f172a;
+    --circle-color: #38bdf8;
+    --glow-color: rgba(56, 189, 248, 0.4);
+    --text-color: #f1f5f9;
+    --accent-color: #7dd3fc;
+    --inhale-time: 4s;
+    --hold-time: 4s;
+    --exhale-time: 4s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+.title {
+    font-weight: 300;
+    letter-spacing: 0.2rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.6;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.timer {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+    font-variant-numeric: tabular-nums;
+}
+
+.circle-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle {
+    width: 150px;
+    height: 150px;
+    background-color: var(--circle-color);
+    border-radius: 50%;
+    transition: transform 100ms linear;
+    /* Smooth micro-adjustments if needed */
+    box-shadow: 0 0 40px var(--glow-color),
+        0 0 100px var(--glow-color);
+}
+
+/* Animations will be handled via JS to allow adjustable timings easily */
+.circle.inhaling {
+    animation: inhale var(--inhale-time) forwards ease-in-out;
+}
+
+.circle.exhaling {
+    animation: exhale var(--exhale-time) forwards ease-in-out;
+}
+
+@keyframes inhale {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(2);
+    }
+}
+
+@keyframes exhale {
+    from {
+        transform: scale(2);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.cue {
+    position: absolute;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.1rem;
+    pointer-events: none;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn {
+    padding: 0.8rem 2rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-color);
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    outline: none;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.btn.secondary {
+    font-size: 0.8rem;
+    border: none;
+    opacity: 0.5;
+}
+
+.btn.secondary:hover {
+    opacity: 1;
+}
+
+/* Settings Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #1e293b;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: left;
+    width: 90%;
+    max-width: 400px;
+}
+
+.modal-content h2 {
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.5rem;
+    background: #0f172a;
+    border: 1px solid #334155;
+    color: white;
+    border-radius: 0.5rem;
+}

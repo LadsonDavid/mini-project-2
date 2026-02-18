@@ -1,0 +1,100 @@
+/* 
+   Eye Relaxation - Styles 
+   Optimized for low eye strain and dark environments
+*/
+
+:root {
+    --bg-color: #0f1115;
+    /* Very dark neutral */
+    --accent-color: #80cbc4;
+    /* Soft seafoam teal */
+    --ui-text-color: rgba(128, 203, 196, 0.7);
+    --ui-bg: rgba(255, 255, 255, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    cursor: pointer;
+    /* Indicate that we can click anywhere to start/pause */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.5s ease;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body.running {
+    cursor: none;
+    /* Hide cursor while running to avoid distraction */
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#messageDisplay {
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    pointer-events: none;
+    /* Don't block clicks to the background */
+    z-index: 10;
+    width: 80%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.main-msg {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    text-shadow: 0 0 10px rgba(128, 203, 196, 0.3);
+}
+
+.sub-msg {
+    color: var(--ui-text-color);
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+}
+
+/* Ensure messages stay visible always */
+#messageDisplay {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+/* Subtle pulse for the main message when paused */
+body:not(.running) .main-msg {
+    animation: softPulse 3s infinite ease-in-out;
+}
+
+@keyframes softPulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}

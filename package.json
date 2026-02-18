@@ -1,0 +1,19 @@
+{
+  "name": "smart-headband-project",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npm run dev:all",
+    "dev:all": "concurrently \"npm run dev:client\" \"npm run dev:backend\"",
+    "dev:client": "cd client && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "install:all": "npm install && cd client && npm install && cd ../backend && npm install",
+    "build:client": "cd client && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "dependencies": {
+    "figma-mcp-server": "^2.1.1"
+  }
+}

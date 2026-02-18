@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breath Sync - Digital Breathing Companion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title">Breath Sync</h1>
+
+        <div id="session-timer" class="timer">00:00</div>
+
+        <div id="circle-container" class="circle-container">
+            <div id="breathing-circle" class="circle"></div>
+            <div id="text-cue" class="cue">Prepare</div>
+        </div>
+
+        <div class="controls">
+            <button id="toggle-btn" class="btn">Start</button>
+            <button id="settings-btn" class="btn secondary">Settings</button>
+        </div>
+
+        <!-- Settings Modal (Optional for future expansion) -->
+        <div id="settings-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>Adjust Timing</h2>
+                <div class="input-group">
+                    <label>Inhale (s): <input type="number" id="inhale-time" value="4" min="2" max="10"></label>
+                </div>
+                <div class="input-group">
+                    <label>Hold (s): <input type="number" id="hold-time" value="4" min="0" max="10"></label>
+                </div>
+                <div class="input-group">
+                    <label>Exhale (s): <input type="number" id="exhale-time" value="4" min="2" max="10"></label>
+                </div>
+                <button id="close-settings" class="btn">Save & Close</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,244 @@
+/* Memory Glow - Design System */
+:root {
+    --bg-color: #0f172a;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+
+    /* Soft Pastel Palette for Tiles */
+    --tile-0: #818cf8;
+    /* Indigo */
+    --tile-1: #34d399;
+    /* Emerald */
+    --tile-2: #fb7185;
+    /* Rose */
+    --tile-3: #fbbf24;
+    /* Amber */
+    --tile-4: #22d3ee;
+    /* Cyan */
+    --tile-5: #a78bfa;
+    /* Violet */
+
+    --glow-intensity: 20px;
+    --transition-speed: 0.4s;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Background gradient animation */
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
+    z-index: -1;
+}
+
+.game-container {
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    animation: fadeIn 1.2s ease-out;
+}
+
+.game-header {
+    margin-bottom: 2.5rem;
+}
+
+.game-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.game-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.board-wrapper {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2rem;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.tile {
+    aspect-ratio: 1;
+    border: none;
+    border-radius: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s, background-color var(--transition-speed), box-shadow var(--transition-speed);
+    position: relative;
+    opacity: 0.6;
+}
+
+.tile:hover {
+    transform: scale(1.02);
+    opacity: 0.8;
+}
+
+.tile:active {
+    transform: scale(0.95);
+}
+
+/* Specific Tile Colors */
+#tile-0 {
+    background-color: var(--tile-0);
+}
+
+#tile-1 {
+    background-color: var(--tile-1);
+}
+
+#tile-2 {
+    background-color: var(--tile-2);
+}
+
+#tile-3 {
+    background-color: var(--tile-3);
+}
+
+#tile-4 {
+    background-color: var(--tile-4);
+}
+
+#tile-5 {
+    background-color: var(--tile-5);
+}
+
+/* Glow Effects */
+.tile.glow {
+    opacity: 1;
+    box-shadow: 0 0 var(--glow-intensity) currentColor;
+}
+
+#tile-0.glow {
+    color: var(--tile-0);
+    box-shadow: 0 0 30px var(--tile-0);
+}
+
+#tile-1.glow {
+    color: var(--tile-1);
+    box-shadow: 0 0 30px var(--tile-1);
+}
+
+#tile-2.glow {
+    color: var(--tile-2);
+    box-shadow: 0 0 30px var(--tile-2);
+}
+
+#tile-3.glow {
+    color: var(--tile-3);
+    box-shadow: 0 0 30px var(--tile-3);
+}
+
+#tile-4.glow {
+    color: var(--tile-4);
+    box-shadow: 0 0 30px var(--tile-4);
+}
+
+#tile-5.glow {
+    color: var(--tile-5);
+    box-shadow: 0 0 30px var(--tile-5);
+}
+
+.game-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.status-message {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    min-height: 1.5rem;
+    transition: opacity 0.3s;
+}
+
+.start-btn {
+    background: transparent;
+    border: 1px solid var(--text-secondary);
+    color: var(--text-primary);
+    padding: 0.8rem 2.5rem;
+    border-radius: 2rem;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.start-btn:hover {
+    background: var(--text-primary);
+    color: var(--bg-color);
+    border-color: var(--text-primary);
+}
+
+.start-btn.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.status-message.error {
+    color: #ef4444;
+    /* Soft Red */
+    font-weight: 500;
+}
+
+.status-message.success {
+    color: #10b981;
+    /* Soft Green */
+    font-weight: 500;
+}
+
+/* Mobile adjustments */
+@media (max-width: 400px) {
+    .game-board {
+        gap: 1rem;
+    }
+
+    .board-wrapper {
+        padding: 1.5rem;
+    }
+}
