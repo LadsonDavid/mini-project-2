@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useBluetooth } from '../context/BluetoothContext'; // New import
 import { useWebSocket } from '../hooks/useWebSocket';
 import { useAppContext } from '../context/AppContext';
 import { api, WS_URL } from '../utils/api';
@@ -12,10 +13,12 @@ import GamesModule from '../components/games/GamesModule';
 import FloatingChatWidget from '../components/FloatingChatWidget';
 import ChartCard from '../components/ChartCard';
 import NotificationToast from '../components/NotificationToast';
-import { Favorite as Heart, Thermostat as Thermometer, Psychology as Brain, Error as AlertCircle, CheckCircle, ExpandMore as ChevronDown, ExpandLess as ChevronUp, Close as X } from '@mui/icons-material';
+import { Favorite as Heart, Thermostat as Thermometer, Psychology as Brain, Error as AlertCircle, CheckCircle, ExpandMore as ChevronDown, ExpandLess as ChevronUp, Close as X, BluetoothDisabled } from '@mui/icons-material';
 
 const Dashboard = () => {
   const { addNotification, addMessage, messages } = useAppContext();
+  const { isConnected: isBluetoothConnected, connect: connectBluetooth } = useBluetooth(); // Use Bluetooth Context
+
   const [sensorData, setSensorData] = useState({
     heartRate: 0,
     temperature: 0,
@@ -32,6 +35,8 @@ const Dashboard = () => {
     temperature: 0,
     vibrationLevel: 0,
   });
+
+  // Keep existing deviceConnected for WebSocket ESP32 backend connection
   const [deviceConnected, setDeviceConnected] = useState(false);
   const [showWarning, setShowWarning] = useState(true);
   const [showCharts, setShowCharts] = useState(false);
@@ -56,9 +61,9 @@ const Dashboard = () => {
       case 'deviceStatus':
         setDeviceConnected(data.connected);
         if (data.connected) {
-          addNotification('ESP32 device connected', 'success');
+          addNotification('ESP32 device connected via Backend', 'success');
         } else {
-          addNotification('ESP32 device disconnected', 'warning');
+          addNotification('ESP32 device disconnected from Backend', 'warning');
         }
         break;
 
@@ -102,15 +107,12 @@ const Dashboard = () => {
 
   // Prevent auto-scroll on page load
   useEffect(() => {
-    // Disable browser scroll restoration
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
-    // Force scroll to top
     window.scrollTo(0, 0);
 
     return () => {
-      // Restore default behavior on cleanup
       if ('scrollRestoration' in window.history) {
         window.history.scrollRestoration = 'auto';
       }
@@ -158,10 +160,59 @@ const Dashboard = () => {
       {/* Notification Toast */}
       <NotificationToast />
 
-      <Header isConnected={isConnected && deviceConnected} />
+      {/* Header with Bluetooth prop removed (handled internally by Header) */}
+      <Header />
 
       <main className="flex-1 container mx-auto px-3 sm:px-6 lg:px-10" role="main" aria-label="Health Dashboard" style={{ paddingTop: '70px', paddingBottom: '80px' }}>
-        {/* Enhanced Connection Status Banner */}
+
+        {/* Bluetooth Disconnection Warning */}
+        {!isBluetoothConnected && showWarning && (
+          <div className="animate-fade-in-down" style={{ animationDuration: '300ms', marginBottom: 'var(--space-4)' }}>
+            <div className="relative overflow-hidden" style={{
+              width: '100%',
+              padding: '1.25rem 1.5rem',
+              borderRadius: 'var(--radius-md)',
+              borderLeft: '4px solid #3b82f6', // Blue for Bluetooth
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '1rem',
+              background: 'rgba(59, 130, 246, 0.1)',
+              border: '1px solid rgba(59, 130, 246, 0.3)'
+            }}>
+              <div className="relative flex-shrink-0">
+                <div className="w-10 h-10 rounded-none bg-blue-500/20 flex items-center justify-center relative">
+                  <BluetoothDisabled className="w-5 h-5 animate-pulse" style={{ color: '#3b82f6' }} />
+                </div>
+              </div>
+              <div className="relative flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <h3 className="font-semibold text-base" style={{ color: '#3b82f6' }}>
+                    Connect Smart Headband
+                  </h3>
+                </div>
+                <p className="text-sm mb-3 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  Pair your device to receive real-time brainwave and sensor data.
+                </p>
+                <button
+                  onClick={connectBluetooth}
+                  className="px-3 py-1.5 rounded-none text-xs font-semibold bg-blue-500 hover:bg-blue-600 text-white transition-colors cursor-pointer"
+                >
+                  Connect Now
+                </button>
+              </div>
+              <button
+                onClick={dismissWarning}
+                className="relative flex-shrink-0 p-1 hover:bg-white/10 rounded-none transition-colors"
+                aria-label="Dismiss warning"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Backend Connection Status Banner */}
         {(!isConnected || !deviceConnected) && showWarning && (
           <div className="animate-fade-in-down" style={{ animationDuration: '300ms', marginBottom: 'var(--space-4)' }}>
             <div className="relative overflow-hidden" style={{
@@ -190,7 +241,7 @@ const Dashboard = () => {
               <div className="relative flex-1">
                 <div className="flex items-center gap-2 mb-1">
                   <h3 className="font-semibold text-base" style={{ color: 'var(--color-alert)' }}>
-                    {!isConnected ? 'Backend Server Offline' : 'Device Connection Lost'}
+                    {!isConnected ? 'Backend Server Offline' : 'Backend Device Lost'}
                   </h3>
                   {deviceConnected && !isConnected && (
                     <span className="text-xs px-2 py-0.5 rounded bg-orange-500/20 text-orange-400 font-medium">
@@ -201,7 +252,7 @@ const Dashboard = () => {
                 <p className="text-sm mb-3 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                   {!isConnected
                     ? 'Start the backend server to enable real-time monitoring and device control.'
-                    : 'ESP32 device disconnected. Using demo mode with simulated sensor data.'}
+                    : 'ESP32 device disconnected from backend. Using demo mode.'}
                 </p>
                 <div className="flex items-center gap-3 flex-wrap">
                   <code className="px-3 py-1.5 rounded-none text-xs font-mono border transition-all hover:bg-white/5" style={{
@@ -226,7 +277,7 @@ const Dashboard = () => {
         )}
 
         {/* Health Summary Banner */}
-        {isConnected && deviceConnected && sensorData.heartRate > 0 && (
+        {(isConnected && deviceConnected || isBluetoothConnected) && sensorData.heartRate > 0 && (
           <div className="animate-fade-in-down" style={{ animationDuration: '300ms', marginBottom: 'var(--space-4)' }}>
             <div className="flex items-center justify-between p-5 rounded-none border premium-card" style={{
               backgroundColor: allNormal ? 'rgba(16, 185, 129, 0.1)' : 'rgba(251, 191, 36, 0.1)',
