@@ -3,7 +3,8 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "start": "npm run dev:all",
+    "start": "cd backend && npm start",
+    "build": "cd backend && npm install",
     "dev:all": "concurrently \"npm run dev:client\" \"npm run dev:backend\"",
     "dev:client": "cd client && npm run dev",
     "dev:backend": "cd backend && npm run dev",
