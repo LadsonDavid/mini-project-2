@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: smart-headband-backend
+    env: node
+    root: backend
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: NODE_ENV
+        value: production
