@@ -1,5 +1,4 @@
 import { useTheme } from '../hooks/useTheme';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
@@ -13,7 +12,11 @@ const Header = ({ isConnected }) => {
 
           {/* Logo and Title */}
           <div className="flex items-center space-x-3">
-            <FavoriteIcon sx={{ fontSize: 28, color: 'rgb(139, 92, 246)' }} />
+            <img
+              src="/smart-headband-favicon.svg"
+              alt="Smart Headband Logo"
+              className="w-8 h-8 object-contain"
+            />
 
             {/* Title - Sentence Case */}
             <div className="hidden sm:block">
