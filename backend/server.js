@@ -23,6 +23,17 @@ app.use((req, res, next) => {
 });
 
 // Routes
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Smart Headband Backend is Running',
+    endpoints: {
+      health: '/health',
+      api: '/api',
+      ws: 'ws://' + req.headers.host + '/frontend'
+    }
+  });
+});
+
 app.use('/api', deviceRoutes);
 
 // Health check endpoint
