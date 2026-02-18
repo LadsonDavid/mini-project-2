@@ -1,7 +1,15 @@
-import axios from 'axios';
+import Groq from 'groq-sdk';
+import dotenv from 'dotenv';
 
-const OLLAMA_API_URL = 'http://localhost:11434/api/generate';
-const MODEL_NAME = 'qwen2:latest';
+dotenv.config();
+
+// Initialize Groq client
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY
+});
+
+// Use Llama 3 70B for high quality responses, or 8B for extreme speed
+const MODEL_NAME = 'llama3-70b-8192';
 
 export const chatWithAI = async (req, res) => {
   const { message } = req.body;
@@ -14,7 +22,7 @@ export const chatWithAI = async (req, res) => {
   }
 
   try {
-    // system prompt for Qwen 2 - Comprehensive Application Assistant
+    
     const systemPrompt = `You are "WellnessAI", the intelligent assistant for our Smart Headache Relief Headband system. You help users understand and use ALL features of the application, interpret their health data, and guide them through therapeutic protocols.
 
 COMPLETE SYSTEM CAPABILITIES:
@@ -111,49 +119,38 @@ User: "I'm stressed but not in pain"
 You: "Great for prevention! Vibration 30-40% + 'Binaural Waves 11Hz' + box breathing (inhale 4, hold 4, exhale 4, hold 4)."
 
 User: "Device won't connect"
-You: "Check headband power and green LED. Status bar shows connection. Demo mode works offline with simulated data."
+You: "Check headband power and green LED. Status bar shows connection. Demo mode works offline with simulated data."`;
 
-Now respond to the user's message:`;
+    console.log(` Groq (${MODEL_NAME}): Processing query...`);
 
-    const fullPrompt = `${systemPrompt}\n\nUser: ${message}\nWellnessAI:`;
+    const completion = await groq.chat.completions.create({
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: message }
+      ],
+      model: MODEL_NAME,
+      temperature: 0.5,
+      max_tokens: 150,
+      top_p: 1,
+      stop: null,
+      stream: false
+    });
 
-    // Call Ollama API with optimized parameters
-    const response = await axios.post(
-      OLLAMA_API_URL,
-      {
-        model: MODEL_NAME,
-        prompt: fullPrompt,
-        stream: false,
-        options: {
-          temperature: 0.5, // Lower for faster, more focused responses
-          top_p: 0.8,
-          top_k: 20, // Reduced for faster token selection
-          num_predict: 120, // Shorter responses = faster generation (2-3 sentences)
-          repeat_penalty: 1.15,
-          stop: ['\nUser:', '\nHuman:', 'User:', 'Human:', '\n\n\n'],
-          num_ctx: 2048, // Smaller context window for faster processing
-        },
-      },
-      {
-        timeout: 30000, // 30 second timeout - 7B model is much faster
-      }
-    );
+    const aiResponse = completion.choices[0]?.message?.content || "I'm sorry, I couldn't generate a response.";
 
-    const aiResponse = response.data.response.trim();
-
-    console.log(`✅ Qwen 2: Response generated (${aiResponse.length} chars)`);
+    console.log(`✅ Groq: Response generated (${aiResponse.length} chars)`);
 
     res.json({
       success: true,
       response: aiResponse,
       model: MODEL_NAME,
       timestamp: Date.now(),
-      tokens: response.data.eval_count || 0,
+      tokens: completion.usage?.total_tokens || 0,
     });
   } catch (error) {
     console.error('❌ AI Error:', error.message);
 
-    // Fallback responses if Ollama is unavailable - Comprehensive assistant responses
+    // Fallback responses if Groq is unavailable or key is missing
     const fallbackResponses = {
       'headache': 'Try the 4-7-8 breathing technique: Inhale for 4 counts, hold for 7, exhale for 8. Set vibration therapy to 60-80% using the slider in "Therapy Controls". I recommend listening to "Weightless" or "Alpha Waves Meditation" from our music player - proven to reduce pain.',
       'stress': 'Your stress readings suggest intervention. Set vibration to 40-50%, play "Binaural Waves 11Hz" for relaxed focus, and try box breathing: inhale 4, hold 4, exhale 4, hold 4. This multi-modal approach reduces stress before it triggers headaches.',
@@ -203,27 +200,19 @@ Now respond to the user's message:`;
       response: fallbackResponse,
       model: 'fallback',
       timestamp: Date.now(),
-      note: 'Using fallback response (Ollama unavailable)',
+      note: 'Using fallback response (Groq unavailable or Key missing)',
     });
   }
 };
 
 export const getAIStatus = (req, res) => {
-  axios
-    .get('http://localhost:11434/api/tags', { timeout: 5000 })
-    .then((response) => {
-      res.json({
-        success: true,
-        available: true,
-        models: response.data.models || [],
-      });
-    })
-    .catch(() => {
-      res.json({
-        success: true,
-        available: false,
-        message: 'Ollama not running - using fallback responses',
-      });
-    });
-};
+  // Simple check if API key is present
+  const isAvailable = !!process.env.GROQ_API_KEY;
 
+  res.json({
+    success: true,
+    available: isAvailable,
+    models: isAvailable ? [MODEL_NAME] : [],
+    provider: 'Groq Cloud'
+  });
+};
