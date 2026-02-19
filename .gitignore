@@ -1,6 +1,7 @@
 # Dependencies
 node_modules/
 backend/node_modules/
+.agent
 
 # Environment variables
 .env
@@ -27,5 +28,3 @@ Thumbs.db
 # Temporary files
 *.tmp
 .cache/
-
-.agent

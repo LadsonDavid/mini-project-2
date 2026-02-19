@@ -236,7 +236,7 @@ const FloatingChatWidget = () => {
       {/* Floating Action Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-14 h-14 sm:w-16 sm:h-16 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 rounded-none shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 z-50 active:scale-95"
+        className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-14 h-14 sm:w-16 sm:h-16 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 rounded-none shadow-2xl ${isOpen ? 'hidden sm:flex' : 'flex'} items-center justify-center transition-all duration-300 hover:scale-110 z-50 active:scale-95`}
       >
         {isOpen ? (
           <CloseIcon sx={{ fontSize: 28, color: 'white' }} />
