@@ -9,7 +9,7 @@ const BottomNav = () => {
   const location = useLocation();
   
   const navItems = [
-    { label: 'Main', path: '/', icon: <DashboardIcon sx={{ fontSize: 24 }} /> },
+    { label: 'Home', path: '/', icon: <DashboardIcon sx={{ fontSize: 24 }} /> },
     { label: 'Music', path: '/music', icon: <MusicIcon sx={{ fontSize: 24 }} /> },
     { label: 'Games', path: '/games', icon: <GamesIcon sx={{ fontSize: 24 }} /> },
   ];
