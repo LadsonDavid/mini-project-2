@@ -1,0 +1,63 @@
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\public\legacy_games\Breath sync\script.js[24m[0m
+[0m  [2m85:10[22m  [31merror[39m  'resetTimer' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\src\components\AIChatBox.jsx[24m[0m
+[0m  [2m64:16[22m  [31merror[39m  'error' is defined but never used  [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\src\components\ChatBox.jsx[24m[0m
+[0m  [2m2:10[22m  [31merror[39m  'useAppContext' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\src\components\FloatingChatWidget.jsx[24m[0m
+[0m  [2m71:14[22m  [31merror[39m  'error' is defined but never used  [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\src\components\MassageControl.jsx[24m[0m
+[0m  [2m1:10[22m  [31merror[39m  'useState' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\src\components\SensorCard.jsx[24m[0m
+[0m   [2m9:49[22m  [31merror[39m  'Icon' is defined but never used                                                                [2mno-unused-vars[22m[0m
+[0m  [2m30:9[22m   [31merror[39m  'getStatusColor' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  [2mno-unused-vars[22m[0m
+[0m  [2m39:9[22m   [31merror[39m  'getGradient' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u     [2mno-unused-vars[22m[0m
+[0m  [2m49:9[22m   [31merror[39m  'getGlowColor' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u    [2mno-unused-vars[22m[0m
+[0m  [2m66:9[22m   [31merror[39m  'offset' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u          [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\src\components\StatCard.jsx[24m[0m
+[0m  [2m3:55[22m  [31merror[39m  'Icon' is defined but never used  [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\src\components\games\BreathSync.jsx[24m[0m
+[0m  [2m16:9[22m  [31merror[39m  'timerRef' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\src\components\games\BubbleBurst.jsx[24m[0m
+[0m  [2m102:8[22m  [33mwarning[39m  React Hook useCallback has a missing dependency: 'colors'. Either include it or remove the dependency array  [2mreact-hooks/exhaustive-deps[22m[0m
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\src\components\games\EyeRelaxation.jsx[24m[0m
+[0m  [2m133:43[22m  [33mwarning[39m  The ref value 'stateRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'stateRef.current' to a variable inside the effect, and use that variable in the cleanup function  [2mreact-hooks/exhaustive-deps[22m[0m
+[0m  [2m135:8[22m   [33mwarning[39m  React Hook useEffect has missing dependencies: 'draw' and 'update'. Either include them or remove the dependency array                                                                                                                                           [2mreact-hooks/exhaustive-deps[22m[0m
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\src\components\games\GamesModule.jsx[24m[0m
+[0m  [2m18:11[22m  [31merror[39m  'toggleFullScreen' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\src\components\games\MemoryGlow.jsx[24m[0m
+[0m   [2m1:27[22m  [31merror[39m    'useEffect' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                      [2mno-unused-vars[22m[0m
+[0m  [2m40:8[22m   [33mwarning[39m  React Hook useCallback has a missing dependency: 'tileFrequencies'. Either include it or remove the dependency array  [2mreact-hooks/exhaustive-deps[22m[0m
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\src\context\AppContext.jsx[24m[0m
+[0m  [2m5:14[22m  [33mwarning[39m  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  [2mreact-refresh/only-export-components[22m[0m
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\src\context\BluetoothContext.jsx[24m[0m
+[0m  [2m80:14[22m  [33mwarning[39m  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  [2mreact-refresh/only-export-components[22m[0m
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\src\pages\Dashboard.jsx[24m[0m
+[0m   [2m19:40[22m  [31merror[39m    'messages' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                 [2mno-unused-vars[22m[0m
+[0m   [2m81:24[22m  [31merror[39m    'sendCommand' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                              [2mno-unused-vars[22m[0m
+[0m   [2m93:6[22m   [33mwarning[39m  React Hook useEffect has missing dependencies: 'prevSensorData.heartRate', 'prevSensorData.temperature', and 'prevSensorData.vibrationLevel'. Either include them or remove the dependency array. You can also replace multiple useState variables with useReducer if 'setTrends' needs the current value of 'prevSensorData.heartRate'  [2mreact-hooks/exhaustive-deps[22m[0m
+[0m  [2m142:9[22m   [31merror[39m    'handleSendMessage' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                        [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[4mD:\Ladson\Mini-Project 2\client\src\pages\VitalsDashboard.jsx[24m[0m
+[0m  [2m11:30[22m  [31merror[39m    'addMessage' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                               [2mno-unused-vars[22m[0m
+[0m  [2m31:12[22m  [31merror[39m    'deviceConnected' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                          [2mno-unused-vars[22m[0m
+[0m  [2m51:13[22m  [31merror[39m    'isConnected' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                              [2mno-unused-vars[22m[0m
+[0m  [2m62:8[22m   [33mwarning[39m  React Hook useEffect has missing dependencies: 'prevSensorData.heartRate', 'prevSensorData.temperature', and 'prevSensorData.vibrationLevel'. Either include them or remove the dependency array. You can also replace multiple useState variables with useReducer if 'setTrends' needs the current value of 'prevSensorData.heartRate'  [2mreact-hooks/exhaustive-deps[22m[0m
+[0m[0m
+[0m[31m[1m✖ 28 problems (20 errors, 8 warnings)[22m[39m[0m
+[0m[31m[1m[22m[39m[0m

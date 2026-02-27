@@ -71,7 +71,7 @@ const FloatingChatWidget = () => {
     } catch (error) {
       const errorMessage = {
         type: 'ai',
-        text: "I'm having trouble connecting right now. Please make sure the backend server is running and try again.",
+        text: `I'm having trouble connecting right now (${error.message || 'Server error'}). Please make sure the backend server is running and try again.`,
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);

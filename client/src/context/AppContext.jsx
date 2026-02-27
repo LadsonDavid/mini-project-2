@@ -2,6 +2,8 @@ import { createContext, useContext, useState } from 'react';
 
 const AppContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
+
 export const useAppContext = () => {
   const context = useContext(AppContext);
   if (!context) {
@@ -25,7 +27,7 @@ export const AppProvider = ({ children }) => {
       timestamp: new Date(),
     };
     setNotifications((prev) => [...prev, notification]);
-    
+
     // Auto-remove after 5 seconds
     setTimeout(() => {
       removeNotification(notification.id);

@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { Close as X } from '@mui/icons-material';
+
+const tileFrequencies = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00];
 
 const MemoryGlow = ({ onExit }) => {
     const [level, setLevel] = useState(1);
@@ -9,8 +11,6 @@ const MemoryGlow = ({ onExit }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [activeTile, setActiveTile] = useState(null);
     const audioCtxRef = useRef(null);
-
-    const tileFrequencies = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00];
 
     const playTone = useCallback((freq, duration) => {
         if (!audioCtxRef.current) {

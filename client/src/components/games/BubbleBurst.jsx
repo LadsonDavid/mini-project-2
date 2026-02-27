@@ -1,20 +1,20 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Close as X } from '@mui/icons-material';
 
+const colors = [
+    'rgba(52, 152, 219, 0.8)', // Stronger Blue
+    'rgba(46, 204, 113, 0.8)', // Stronger Green
+    'rgba(231, 76, 60, 0.7)',  // Soft Red
+    'rgba(155, 89, 182, 0.8)', // Stronger Purple
+    'rgba(241, 196, 15, 0.8)', // Stronger Yellow
+    'rgba(230, 126, 34, 0.8)'  // Stronger Orange
+];
+
 const BubbleBurst = ({ onExit }) => {
     const [bubbles, setBubbles] = useState([]);
     const [particles, setParticles] = useState([]);
     const containerRef = useRef(null);
     const audioCtxRef = useRef(null);
-
-    const colors = [
-        'rgba(52, 152, 219, 0.8)', // Stronger Blue
-        'rgba(46, 204, 113, 0.8)', // Stronger Green
-        'rgba(231, 76, 60, 0.7)',  // Soft Red
-        'rgba(155, 89, 182, 0.8)', // Stronger Purple
-        'rgba(241, 196, 15, 0.8)', // Stronger Yellow
-        'rgba(230, 126, 34, 0.8)'  // Stronger Orange
-    ];
 
     const playSound = useCallback(() => {
         if (!audioCtxRef.current) {

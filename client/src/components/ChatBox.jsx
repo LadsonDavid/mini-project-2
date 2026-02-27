@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { useAppContext } from '../context/AppContext';
 import SendIcon from '@mui/icons-material/Send';
 import PersonIcon from '@mui/icons-material/Person';
 import DevicesIcon from '@mui/icons-material/Devices';
@@ -77,8 +76,8 @@ const ChatBox = ({ messages, onSendMessage }) => {
               >
                 <div
                   className={`p-3 rounded-none flex-shrink-0 shadow-md ${msg.sender === 'user'
-                      ? 'gradient-blue-purple'
-                      : 'bg-[var(--color-card)] border border-[var(--border-medium)]'
+                    ? 'gradient-blue-purple'
+                    : 'bg-[var(--color-card)] border border-[var(--border-medium)]'
                     }`}
                 >
                   {msg.sender === 'user' ? (
@@ -90,8 +89,8 @@ const ChatBox = ({ messages, onSendMessage }) => {
                 <div className="flex-1">
                   <div
                     className={`px-5 py-4 rounded-none shadow-md ${msg.sender === 'user'
-                        ? 'gradient-blue-purple text-white'
-                        : 'bg-[var(--color-card)] border border-[var(--border-medium)]'
+                      ? 'gradient-blue-purple text-white'
+                      : 'bg-[var(--color-card)] border border-[var(--border-medium)]'
                       }`}
                     style={msg.sender !== 'user' ? { color: 'var(--text-primary)' } : {}}
                   >
@@ -123,8 +122,8 @@ const ChatBox = ({ messages, onSendMessage }) => {
           onClick={handleSend}
           disabled={!inputMessage.trim()}
           className={`px-5 py-3 rounded-none transition-all var(--transition-base) shadow-md hover:shadow-lg ${!inputMessage.trim()
-              ? 'bg-white/10 text-white/30 cursor-not-allowed'
-              : 'bg-[var(--color-accent)] text-white hover:scale-[1.01]'
+            ? 'bg-white/10 text-white/30 cursor-not-allowed'
+            : 'bg-[var(--color-accent)] text-white hover:scale-[1.01]'
             }`}
           style={{ borderRadius: 'var(--radius-md)' }}
         >

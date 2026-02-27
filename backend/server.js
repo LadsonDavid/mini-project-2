@@ -65,17 +65,9 @@ app.use((err, req, res, next) => {
 // Initialize WebSocket service
 websocketService.initialize(server);
 
-// Start server
-server.listen(config.wsPort, () => {
-  console.log('=====================================');
-  console.log('Smart Headband Backend Server');
-  console.log('=====================================');
-  console.log(`Environment: ${config.nodeEnv}`);
-  console.log(`HTTP Server: http://localhost:${config.wsPort}`);
-  console.log(`WebSocket (ESP32): ws://localhost:${config.wsPort}/esp32`);
-  console.log(`WebSocket (Frontend): ws://localhost:${config.wsPort}/frontend`);
-  console.log('=====================================');
-  console.log('Waiting for connections...\n');
+const PORT = config.wsPort || 8080;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
 // Graceful shutdown

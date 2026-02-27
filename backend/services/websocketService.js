@@ -110,7 +110,6 @@ class WebSocketService {
   }
 
   handleFrontendConnection(ws) {
-    console.log('✅ Frontend client connected (Total:', this.frontendClients.size + 1 + ')');
     this.frontendClients.add(ws);
 
     // Send current sensor data and device status
@@ -129,7 +128,7 @@ class WebSocketService {
           this.sendToESP32(message);
         }
       } catch (error) {
-        console.error('❌ Error parsing frontend message:', error.message);
+        console.error(' Error parsing frontend message:', error.message);
         // Send error back to client
         ws.send(JSON.stringify({
           type: 'error',
@@ -140,13 +139,13 @@ class WebSocketService {
 
     ws.on('close', () => {
       this.frontendClients.delete(ws);
-      console.log('👋 Frontend client disconnected (Remaining:', this.frontendClients.size + ')');
+      console.log(' Frontend client disconnected (Remaining:', this.frontendClients.size + ')');
     });
 
     ws.on('error', (error) => {
       // Silently handle errors unless they're critical
       if (error.code !== 'ECONNRESET') {
-        console.error('❌ Frontend WebSocket error:', error.message);
+        console.error(' Error parsing frontend WebSocket error:', error.message);
       }
       this.frontendClients.delete(ws);
     });
@@ -184,7 +183,6 @@ class WebSocketService {
       clearInterval(this.simulatorInterval);
     }
 
-    console.log('🎭 DEMO MODE: Started simulated sensor data stream');
     this.demoMode = true;
     
     let heartRateBase = 75;
@@ -230,7 +228,6 @@ class WebSocketService {
     if (this.simulatorInterval) {
       clearInterval(this.simulatorInterval);
       this.simulatorInterval = null;
-      console.log('🎭 DEMO MODE: Stopped');
     }
     this.demoMode = false;
   }

@@ -79,13 +79,7 @@ function updateTimer() {
     timerDisplay.textContent = formatTime(secondsElapsed);
 }
 
-/**
- * Resets the timer to 0
- */
-function resetTimer() {
-    secondsElapsed = 0;
-    timerDisplay.textContent = formatTime(secondsElapsed);
-}
+
 
 /**
  * Updates the CSS custom properties to sync animation duration with settings

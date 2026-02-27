@@ -128,10 +128,12 @@ const EyeRelaxation = ({ onExit }) => {
         };
 
         window.addEventListener('resize', handleResize);
+        const animId = stateRef.current.animationId;
         return () => {
             window.removeEventListener('resize', handleResize);
-            cancelAnimationFrame(stateRef.current.animationId);
+            cancelAnimationFrame(animId);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isRunning]);
 
     return (

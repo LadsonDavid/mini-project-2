@@ -6,7 +6,7 @@ import VibrationIcon from '@mui/icons-material/Vibration';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 
-const SensorCard = ({ title, value, unit, icon: Icon, type, trend }) => {
+const SensorCard = ({ title, value, unit, type, trend }) => {
   const [prevValue, setPrevValue] = useState(value);
   const [isAnimating, setIsAnimating] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(Date.now());
@@ -27,43 +27,13 @@ const SensorCard = ({ title, value, unit, icon: Icon, type, trend }) => {
     return `${minutes}m ago`;
   };
 
-  const getStatusColor = () => {
-    const threshold = SENSOR_THRESHOLDS[type.toUpperCase()];
-    if (!threshold) return 'text-primary-600 dark:text-primary-400';
-
-    if (value >= threshold.DANGER) return 'text-danger-600 dark:text-danger-400';
-    if (value >= threshold.WARNING) return 'text-warning-600 dark:text-warning-400';
-    return 'text-success-600 dark:text-success-400';
-  };
-
-  const getGradient = () => {
-    // Solid colors for progress bar
-    const threshold = SENSOR_THRESHOLDS[type.toUpperCase()];
-    if (!threshold) return 'bg-primary';
-
-    if (value >= threshold.DANGER) return 'bg-error';
-    if (value >= threshold.WARNING) return 'bg-warning';
-    return 'bg-success';
-  };
-
-  const getGlowColor = () => {
-    const threshold = SENSOR_THRESHOLDS[type.toUpperCase()];
-    if (!threshold) return 'rgba(14, 165, 233, 0.3)';
-
-    if (value >= threshold.DANGER) return 'rgba(239, 68, 68, 0.3)';
-    if (value >= threshold.WARNING) return 'rgba(245, 158, 11, 0.3)';
-    return 'rgba(34, 197, 94, 0.3)';
-  };
-
   const getPercentage = () => {
     const threshold = SENSOR_THRESHOLDS[type.toUpperCase()];
     if (!threshold) return 0;
     return Math.min((value / threshold.MAX) * 100, 100);
   };
 
-  const radius = 50;
-  const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (getPercentage() / 100) * circumference;
+
 
   return (
     <div className="relative group animate-fade-in-up h-full">

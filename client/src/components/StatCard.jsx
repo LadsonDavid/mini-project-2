@@ -1,5 +1,6 @@
 import { TrendingUp, TrendingDown, Remove as Minus } from '@mui/icons-material';
 
+// eslint-disable-next-line no-unused-vars
 const StatCard = ({ title, value, unit, change, icon: Icon, color = 'primary' }) => {
   const getTrend = () => {
     if (change > 0) return { icon: TrendingUp, color: 'text-success-500', bg: 'bg-success-50 dark:bg-success-900/20' };

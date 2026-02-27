@@ -15,18 +15,6 @@ const GamesModule = () => {
         { id: 'memory', name: 'Memory Glow', icon: BrainIcon, component: MemoryGlow, description: 'Gentle sequence training for focus' },
     ];
 
-    const toggleFullScreen = () => {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(err => {
-                console.error(`Error attempting to enable full-screen mode: ${err.message}`);
-            });
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            }
-        }
-    };
-
     const handleBack = () => {
         if (document.fullscreenElement) {
             document.exitFullscreen();

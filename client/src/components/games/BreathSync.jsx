@@ -13,7 +13,6 @@ const BreathSync = ({ onExit }) => {
   const [sessionTime, setSessionTime] = useState(0);
   const [showSettings, setShowSettings] = useState(false);
   const audioCtxRef = useRef(null);
-  const timerRef = useRef(null);
 
   const playBeep = (frequency = 440, duration = 0.1) => {
     try {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useBluetooth } from '../context/BluetoothContext'; // New import
 import { useWebSocket } from '../hooks/useWebSocket';
 import { useAppContext } from '../context/AppContext';
@@ -16,7 +16,7 @@ import NotificationToast from '../components/NotificationToast';
 import { Favorite as Heart, Thermostat as Thermometer, Psychology as Brain, Error as AlertCircle, CheckCircle, ExpandMore as ChevronDown, ExpandLess as ChevronUp, Close as X, BluetoothDisabled } from '@mui/icons-material';
 
 const Dashboard = () => {
-  const { addNotification, addMessage, messages } = useAppContext();
+  const { addNotification, addMessage } = useAppContext();
   const { isConnected: isBluetoothConnected, connect: connectBluetooth } = useBluetooth(); // Use Bluetooth Context
 
   const [sensorData, setSensorData] = useState({
@@ -25,7 +25,7 @@ const Dashboard = () => {
     vibrationLevel: 0,
     timestamp: null,
   });
-  const [prevSensorData, setPrevSensorData] = useState({
+  const prevSensorDataRef = useRef({
     heartRate: 0,
     temperature: 0,
     vibrationLevel: 0,
@@ -78,18 +78,18 @@ const Dashboard = () => {
   };
 
   // Connect to backend WebSocket
-  const { isConnected, sendCommand } = useWebSocket(WS_URL, handleWebSocketMessage);
+  const { isConnected } = useWebSocket(WS_URL, handleWebSocketMessage);
 
   // Calculate trends when sensor data updates
   useEffect(() => {
-    if (sensorData.heartRate !== 0 && prevSensorData.heartRate !== 0) {
+    if (sensorData.heartRate !== 0 && prevSensorDataRef.current.heartRate !== 0) {
       setTrends({
-        heartRate: ((sensorData.heartRate - prevSensorData.heartRate) / prevSensorData.heartRate) * 100,
-        temperature: ((sensorData.temperature - prevSensorData.temperature) / prevSensorData.temperature) * 100,
-        vibrationLevel: ((sensorData.vibrationLevel - prevSensorData.vibrationLevel) / (prevSensorData.vibrationLevel || 1)) * 100,
+        heartRate: ((sensorData.heartRate - prevSensorDataRef.current.heartRate) / prevSensorDataRef.current.heartRate) * 100,
+        temperature: ((sensorData.temperature - prevSensorDataRef.current.temperature) / prevSensorDataRef.current.temperature) * 100,
+        vibrationLevel: ((sensorData.vibrationLevel - prevSensorDataRef.current.vibrationLevel) / (prevSensorDataRef.current.vibrationLevel || 1)) * 100,
       });
     }
-    setPrevSensorData(sensorData);
+    prevSensorDataRef.current = sensorData;
   }, [sensorData]);
 
   // Check if all vitals are normal
@@ -139,21 +139,7 @@ const Dashboard = () => {
     }
   };
 
-  const handleSendMessage = async (message) => {
-    try {
-      addMessage(message, 'user');
-      const result = await api.sendMessage(message);
-      if (result.success) {
-        addNotification('Message sent to ESP32', 'success');
-      } else {
-        addNotification(result.error || 'Failed to send message', 'error');
-      }
-    } catch (error) {
-      const errorMessage = error.message || 'Error sending message';
-      addNotification(errorMessage, 'error');
-      console.error('Message send error:', error);
-    }
-  };
+
 
   return (
     <div className="min-h-screen flex flex-col">
